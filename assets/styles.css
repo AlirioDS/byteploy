@@ -239,11 +239,13 @@ section[id], footer[id] { scroll-margin-top: calc(var(--header-h) + 16px); }
 .mini-list li { padding-left: 24px; position: relative; }
 .mini-list li::before { content: ""; position: absolute; left: 0; top: 0.5em; width: 12px; height: 12px; transform: translateY(-2px); background: url("cursor.svg") no-repeat center / contain; }
 
-.tech { margin-top: 42px; }
-.tech-label { font-family: var(--font-mono); font-size: 0.82rem; color: var(--gold-ink); margin-bottom: 12px; }
-.chips { list-style: none; display: flex; flex-wrap: wrap; gap: 9px; }
-.chips li { font-family: var(--font-mono); font-size: 0.82rem; color: var(--muted); border: 1px solid var(--line); border-radius: 999px; padding: 5px 13px; background: var(--card); }
-.chips li:hover { border-color: var(--bronze); color: var(--ink); }
+.services-note {
+  margin-top: 42px; padding: 20px 24px; max-width: 56ch;
+  border-left: 3px solid var(--brand);
+  background: rgba(200, 146, 58, 0.06); border-radius: 0 12px 12px 0;
+}
+.services-note p { margin: 0; font-size: 1.16rem; font-weight: var(--fw-semi); color: var(--ink); }
+.services-note strong { font-weight: var(--fw-display); }
 
 /* ---------- Proceso ---------- */
 
@@ -307,15 +309,12 @@ section[id], footer[id] { scroll-margin-top: calc(var(--header-h) + 16px); }
 
 /* ---------- Footer ---------- */
 
-.site-footer { background: var(--ink); color: var(--paper); padding: 46px 0 36px; border-top: 1px solid var(--line-d); }
-.footer-grid { display: grid; grid-template-columns: 1.3fr 1fr; gap: 28px 40px; }
+.site-footer { background: var(--ink); color: var(--paper); padding: 44px 0 34px; border-top: 1px solid var(--line-d); }
+.footer-grid { display: grid; grid-template-columns: 1fr; gap: 22px; }
 .footer-word { height: 26px; width: auto; display: block; margin-bottom: 12px; }
 .footer-brand p { color: var(--muted-d); font-size: 0.92rem; margin: 0; max-width: 34ch; }
-.footer-nav { display: flex; flex-wrap: wrap; gap: 8px 22px; align-content: start; justify-content: flex-end; }
-.footer-nav a { color: var(--muted-d); font-size: 0.92rem; }
-.footer-nav a:hover { color: var(--brand); }
-.footer-legal { grid-column: 1 / -1; border-top: 1px solid var(--line-d); padding-top: 22px; }
-.footer-legal p { color: var(--muted-d); font-size: 0.82rem; margin: 0 0 6px; }
+.footer-legal { border-top: 1px solid var(--line-d); padding-top: 22px; }
+.footer-legal p { color: var(--muted-d); font-size: 0.82rem; margin: 0; }
 
 /* ---------- Reveal ---------- */
 
@@ -350,7 +349,14 @@ section[id], footer[id] { scroll-margin-top: calc(var(--header-h) + 16px); }
   body { font-size: 16px; }
   .cards-3, .cards-2, .steps { grid-template-columns: 1fr; }
   .hero-cta .btn { flex: 1 1 auto; }
-  .term-body { font-size: 0.82rem; }
+  /* Terminal: encoge la fuente y deja que las líneas largas envuelvan
+     (en vez de scroll horizontal / cortarse) para que se lea bien en móvil */
+  .term-body {
+    font-size: 0.74rem; line-height: 1.75; padding: 16px 16px;
+    white-space: pre-wrap; overflow-wrap: anywhere; overflow-x: hidden;
+  }
+  .services-note { padding: 16px 18px; }
+  .services-note p { font-size: 1.06rem; }
   .form-row { grid-template-columns: 1fr; }
 }
 

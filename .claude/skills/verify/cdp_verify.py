@@ -190,10 +190,10 @@ try:
     check("EN toggle -> /en/", cdp.js("location.pathname") == "/en/", cdp.js("location.href"))
     check("EN typewriter word list", "project" in (cdp.js(
         "document.getElementById('typeword')?.dataset.words || ''")), "")
-    # back to ES from EN footer link
-    cdp.js("document.querySelector('.footer-nav a[hreflang=\"es\"]').click()")
+    # back to ES from EN navbar language toggle (footer no longer has lang links)
+    cdp.js("document.querySelector('.nav-lang').click()")
     time.sleep(1.2); cdp.drain(0.5)
-    check("ES link from EN footer -> /", cdp.js("location.pathname") == "/", cdp.js("location.href"))
+    check("ES toggle from EN navbar -> /", cdp.js("location.pathname") == "/", cdp.js("location.href"))
 
     # --- 7. mobile metrics: overflow + hamburger menu flow ---
     cdp.call("Emulation.setDeviceMetricsOverride",
