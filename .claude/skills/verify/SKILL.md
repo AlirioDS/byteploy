@@ -42,9 +42,13 @@ python3 .claude/skills/verify/cdp_verify.py   # con el server en :8137
 
 ## Gotchas del entorno
 
-- En este contenedor fontconfig resuelve `sans-serif` → Liberation Mono: TODO se ve
-  monoespaciado en screenshots. No es un bug del sitio; en dispositivos reales
-  `system-ui` resuelve a la sans del sistema.
+- La tipografía Manrope es **self-hosted** (`assets/fonts/manrope-variable.woff2`),
+  así que chromium headless SÍ la renderiza — los screenshots muestran la tipografía
+  real. Solo los elementos monoespaciados (kicker, terminal, chips) caen en Liberation
+  Mono del contenedor; eso es esperado.
+- Al medir Lighthouse con `python3 -m http.server`, `uses-text-compression` aparece
+  como pendiente (el server no hace gzip). No baja el score de performance (sigue 100)
+  y en el hosting real (Cloudflare/Netlify) el gzip/brotli es automático.
 - `python3 -m http.server` no sirve `404.html` para rutas inexistentes (eso lo hace
   el hosting). Probar la página directo: `/404.html`.
 - Las imágenes OG/íconos se regeneran con chromium headless (comandos en README.md).

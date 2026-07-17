@@ -14,8 +14,9 @@ import os
 
 SRC = os.path.dirname(__file__)
 OUT = os.path.dirname(SRC)  # assets/
-SAT = 45          # umbral de saturación para detectar amarillo
-BRAND = (255, 210, 30)   # amarillo de marca normalizado (#FFD21E) para tiles
+SAT = 45                 # umbral de saturación para detectar amarillo
+GOLD = (235, 197, 71)    # oro de paleta (#EBC547) al que se remapea el amarillo del logo
+REF_LUMA = 214.0         # luma del amarillo puro del logo (255,219,45), referencia de escala
 
 def load_rgb(name):
     return Image.open(os.path.join(SRC, name)).convert("RGB")
@@ -31,8 +32,12 @@ def recolor(im, ink):
         for x in range(W):
             r, g, b = src[x, y]
             mx, mn = max(r, g, b), min(r, g, b)
-            if mx - mn > SAT:                       # amarillo
-                dst[x, y] = (r, g, b, 255)
+            if mx - mn > SAT:                       # amarillo -> oro de paleta (#EBC547)
+                luma = 0.2126 * r + 0.7152 * g + 0.0722 * b
+                k = max(0.4, min(1.12, luma / REF_LUMA))   # preserva el AA (bordes más oscuros/claros)
+                dst[x, y] = (min(255, int(GOLD[0] * k)),
+                             min(255, int(GOLD[1] * k)),
+                             min(255, int(GOLD[2] * k)), 255)
             else:                                    # gris/negro/blanco
                 a = 255 - mn                         # blanco->0, negro->255
                 if a <= 4:

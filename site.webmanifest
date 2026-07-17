@@ -4,8 +4,8 @@
   "description": "Software a medida, desde Chile para el mundo.",
   "start_url": "/",
   "display": "browser",
-  "background_color": "#0a0a0b",
-  "theme_color": "#ffffff",
+  "background_color": "#0e0e10",
+  "theme_color": "#f6f4ef",
   "icons": [
     { "src": "assets/favicon-32.png", "sizes": "32x32", "type": "image/png" },
     { "src": "assets/apple-touch-icon.png", "sizes": "180x180", "type": "image/png" },

@@ -30,12 +30,17 @@ hosting gratuito en cualquier plataforma y nada que mantener ni actualizar.
     ├── apple-touch-icon.png / icon-512.png / maskable-512.png
     ├── og.png            # Imagen para compartir (1200×630)
     ├── og-source.html    # Fuente para regenerar og.png
+    ├── fonts/            # Manrope (variable, self-hosted, subset latin, woff2)
     └── brand/            # PNG originales del logo + process.py (pipeline de assets)
 ```
 
-> **Marca:** negro `#0A0A0B` + amarillo dorado `#FFD21E`, con el motivo de circuito
-> y el cursor de "deploy". Los assets web se generan desde los PNG originales del
-> logo (`assets/brand/*-source.png`) con `assets/brand/process.py`.
+> **Marca:** paleta `#0E0E10` (tinta) · `#EBC547` (oro) · `#C8923A` (bronce) ·
+> `#F6F4EF` (crema), con el motivo de circuito y el cursor de "deploy".
+> **Tipografía:** Manrope (variable, self-hosted en `assets/fonts/` — sin CDN):
+> display 800, wordmark/UI fuerte 600, cuerpo 500, UI 400. Código/terminal en
+> monoespaciada del sistema. Los assets del logo se generan desde los PNG
+> originales (`assets/brand/*-source.png`) con `assets/brand/process.py`, que
+> remapea el amarillo del logo al oro de paleta `#EBC547`.
 
 ## Ver el sitio en local
 
