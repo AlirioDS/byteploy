@@ -96,8 +96,8 @@ icon_white = crop_pad(recolor(icon_rgb, (255, 255, 255)), pad_frac=0.05, square=
 fit_h(icon_black, 512).save(os.path.join(OUT, "logo-icon.png"))
 fit_h(icon_white, 512).save(os.path.join(OUT, "logo-icon-light.png"))
 
-# ---------- WORDMARK (lowercase = principal) ----------
-word_rgb = load_rgb("wordmark-lower-source.png")
+# ---------- WORDMARK (capitalizado "Byteploy" con B = principal) ----------
+word_rgb = load_rgb("wordmark-upper-source.png")
 word_black = crop_pad(recolor(word_rgb, (0, 0, 0)), pad_frac=0.02)
 word_white = crop_pad(recolor(word_rgb, (255, 255, 255)), pad_frac=0.02)
 fit_h(word_black, 220).save(os.path.join(OUT, "wordmark.png"))

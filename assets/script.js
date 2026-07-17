@@ -84,4 +84,53 @@
       targets.forEach((t) => io.observe(t));
     }
   }
+
+  // Formulario de contacto: envío AJAX (web3forms), sin recargar la página.
+  // Sin JS, el <form> hace POST nativo al mismo endpoint (fallback funcional).
+  const form = $("#contact-form");
+  if (form) {
+    const statusEl = $(".form-status", form);
+    const btn = $(".form-submit", form);
+    const setStatus = (msg, kind) => {
+      statusEl.textContent = msg || "";
+      statusEl.classList.toggle("is-ok", kind === "ok");
+      statusEl.classList.toggle("is-err", kind === "err");
+    };
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      setStatus("", null);
+      if (form.botcheck && form.botcheck.checked) return; // honeypot
+      if (!form.checkValidity()) { form.reportValidity(); return; }
+      const key = form.elements.access_key ? form.elements.access_key.value : "";
+      if (!key || /PON-AQUI|ACCESS-KEY|YOUR/i.test(key)) {
+        setStatus(form.dataset.config, "err"); // clave aún sin configurar
+        return;
+      }
+      const data = Object.fromEntries(new FormData(form).entries());
+      const label = btn.textContent;
+      form.classList.add("is-sending");
+      btn.disabled = true;
+      btn.textContent = "…";
+      try {
+        const res = await fetch(form.action, {
+          method: "POST",
+          headers: { "Content-Type": "application/json", Accept: "application/json" },
+          body: JSON.stringify(data),
+        });
+        const out = await res.json().catch(() => ({}));
+        if (res.ok && out.success) {
+          setStatus(form.dataset.ok, "ok");
+          form.reset();
+        } else {
+          setStatus(out.message || form.dataset.err, "err");
+        }
+      } catch (_) {
+        setStatus(form.dataset.err, "err");
+      } finally {
+        form.classList.remove("is-sending");
+        btn.disabled = false;
+        btn.textContent = label;
+      }
+    });
+  }
 })();

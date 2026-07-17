@@ -58,11 +58,18 @@ python3 -m http.server 8000
       grep -rl 'byteploy.com' index.html en/index.html sitemap.xml robots.txt \
         | xargs sed -i 's|byteploy\.com|TU-DOMINIO|g'
       ```
-- [ ] **Correo de contacto**: hoy apunta a `info@byteploy.com`.
-      Cuando tengas correo con dominio propio (ej. `hola@byteploy.com`), búscalo y reemplázalo
-      en `index.html` y `en/index.html` (aparece en los `mailto:` y en el JSON-LD).
-- [ ] **WhatsApp**: hay un botón comentado en la sección de contacto de ambas páginas —
-      descomenta y pon tu número en formato internacional (`56 9 XXXX XXXX` sin espacios).
+- [ ] **Formulario de contacto** (⚠️ activar antes de publicar): usa
+      [web3forms.com](https://web3forms.com) — envío de formularios sin servidor, gratis.
+      1. Entra a web3forms.com, escribe `info@byteploy.com` y te llega una **Access Key**.
+      2. Pega esa clave en el `value="PON-AQUI-TU-ACCESS-KEY-DE-WEB3FORMS"` de
+         `index.html` **y** `en/index.html` (campo oculto `access_key` del `<form>`).
+      Mientras la clave sea el placeholder, el formulario muestra un aviso amable y no
+      envía; con la clave real, los mensajes llegan a `info@byteploy.com`. Alternativa
+      "propia" (sin terceros): Cloudflare Pages Functions + Resend/MailChannels.
+- [ ] **Correo de contacto**: `info@byteploy.com` en `mailto:`, JSON-LD y formulario.
+      Asegúrate de que el buzón exista de verdad (o cámbialo con un `grep -rl` + `sed`).
+- [ ] **WhatsApp** (opcional): hay un botón comentado en la sección de contacto de ambas
+      páginas — descomenta y pon tu número en formato internacional (`56 9 XXXX XXXX`).
 - [ ] **Redes sociales**: cuando existan, agrega `"sameAs": ["https://..."]` al bloque
       JSON-LD `Organization` de ambas páginas (ayuda al SEO de marca).
 - [ ] Revisa la lista de tecnologías y los textos de servicios por si quieres ajustar el alcance.

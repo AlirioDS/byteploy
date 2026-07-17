@@ -127,8 +127,7 @@
 <header class="site-header" id="top">
   <nav class="nav container" aria-label="Principal">
     <a class="brand" href="#top" aria-label="Byteploy — inicio">
-      <img class="brand-mark" src="assets/logo-icon.png" width="32" height="32" alt="" fetchpriority="high">
-      <img class="brand-word" src="assets/wordmark.png" width="80" height="21" alt="Byteploy">
+      <img class="brand-word" src="assets/wordmark.png" width="91" height="24" alt="Byteploy" fetchpriority="high">
     </a>
     <button class="nav-toggle" aria-expanded="false" aria-controls="nav-menu">
       <span class="sr-only">Abrir menú</span>
@@ -362,16 +361,37 @@
     <div class="circuit contact-circuit" aria-hidden="true"></div>
     <div class="container container-narrow">
       <div class="contact-card" data-reveal>
-        <img class="contact-word" src="assets/wordmark-light.png" width="152" height="40" alt="Byteploy" loading="lazy">
+        <img class="contact-word" src="assets/wordmark-light.png" width="151" height="40" alt="Byteploy" loading="lazy">
         <p class="kicker">// contacto</p>
         <h2>Conversemos tu idea</h2>
         <p class="section-sub">Cuéntanos qué quieres construir y te respondemos con los próximos pasos. La primera conversación no tiene costo ni compromiso.</p>
-        <div class="hero-cta contact-cta">
-          <a class="btn btn-primary" href="mailto:info@byteploy.com?subject=Cotizaci%C3%B3n%20de%20proyecto%20-%20Byteploy&amp;body=Hola%20Byteploy%2C%0A%0AQuiero%20cotizar%20un%20proyecto%3A%0A%0A-%20Qu%C3%A9%20quiero%20construir%3A%20%0A-%20Plazo%20ideal%3A%20%0A-%20Presupuesto%20aproximado%3A%20%0A%0AGracias">Escríbenos por correo</a>
-          <!-- WhatsApp: descomenta y pon tu número en formato internacional, ej: 56912345678
-          <a class="btn btn-ghost" href="https://wa.me/56900000000?text=Hola%20Byteploy%2C%20quiero%20cotizar%20un%20proyecto" rel="noopener">WhatsApp</a>
-          -->
-        </div>
+        <form class="contact-form" id="contact-form" action="https://api.web3forms.com/submit" method="POST"
+              novalidate
+              data-ok="¡Gracias! Recibimos tu mensaje y te responderemos muy pronto."
+              data-err="No pudimos enviar el mensaje. Inténtalo de nuevo o escríbenos a info@byteploy.com."
+              data-config="Formulario en configuración. Mientras tanto, escríbenos a info@byteploy.com.">
+          <!-- Reemplaza el valor por tu Access Key de web3forms.com (gratis, enlazada a info@byteploy.com) -->
+          <input type="hidden" name="access_key" value="PON-AQUI-TU-ACCESS-KEY-DE-WEB3FORMS">
+          <input type="hidden" name="subject" value="Nuevo mensaje desde byteploy.com">
+          <input type="hidden" name="from_name" value="Web Byteploy">
+          <input type="checkbox" name="botcheck" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <div class="form-row">
+            <div class="field">
+              <label for="cf-nombre">Nombre</label>
+              <input id="cf-nombre" name="name" type="text" autocomplete="name" required placeholder="Tu nombre">
+            </div>
+            <div class="field">
+              <label for="cf-email">Email</label>
+              <input id="cf-email" name="email" type="email" autocomplete="email" required placeholder="tucorreo@ejemplo.com">
+            </div>
+          </div>
+          <div class="field">
+            <label for="cf-mensaje">¿Qué quieres construir?</label>
+            <textarea id="cf-mensaje" name="message" rows="4" required placeholder="Cuéntanos tu idea, el plazo ideal y un presupuesto aproximado."></textarea>
+          </div>
+          <button class="btn btn-primary form-submit" type="submit">Enviar mensaje</button>
+          <p class="form-status" role="status" aria-live="polite"></p>
+        </form>
         <p class="contact-mail">o escribe directo a <a href="mailto:info@byteploy.com">info@byteploy.com</a></p>
       </div>
     </div>
@@ -383,7 +403,7 @@
   <div class="container footer-grid">
     <div class="footer-brand">
       <a class="brand" href="#top" aria-label="Byteploy — volver arriba">
-        <img class="footer-word" src="assets/wordmark-light.png" width="99" height="26" alt="Byteploy" loading="lazy">
+        <img class="footer-word" src="assets/wordmark-light.png" width="98" height="26" alt="Byteploy" loading="lazy">
       </a>
       <p>Software a medida, desde Chile para el mundo.</p>
     </div>
