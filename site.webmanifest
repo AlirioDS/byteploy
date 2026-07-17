@@ -1,0 +1,13 @@
+{
+  "name": "Byteploy",
+  "short_name": "Byteploy",
+  "description": "Software a medida, desde Chile para el mundo.",
+  "start_url": "/",
+  "display": "browser",
+  "background_color": "#070b14",
+  "theme_color": "#070b14",
+  "icons": [
+    { "src": "assets/favicon.svg", "sizes": "any", "type": "image/svg+xml" },
+    { "src": "assets/icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}

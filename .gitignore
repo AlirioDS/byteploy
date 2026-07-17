@@ -1,0 +1,14 @@
+# Sistema operativo
+.DS_Store
+Thumbs.db
+
+# Editores
+.vscode/
+.idea/
+
+# Logs y temporales
+*.log
+*.tmp
+
+# Dependencias (si el proyecto crece a un stack con build)
+node_modules/
