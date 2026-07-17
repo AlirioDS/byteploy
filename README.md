@@ -17,15 +17,25 @@ hosting gratuito en cualquier plataforma y nada que mantener ni actualizar.
 ├── sitemap.xml         # Ambos idiomas con alternates hreflang
 ├── site.webmanifest    # Nombre, colores e íconos
 └── assets/
-    ├── styles.css      # Estilos (tokens de diseño al inicio del archivo)
-    ├── script.js       # Typewriter del titular, menú móvil, animaciones
-    ├── favicon.svg     # Ícono del sitio
-    ├── og.png          # Imagen para compartir (1200×630)
-    ├── icon-512.png    # Ícono manifest / logo para JSON-LD
-    ├── apple-touch-icon.png
-    ├── og-source.html  # Fuente para regenerar og.png
-    └── icon-source.html# Fuente para regenerar los íconos PNG
+    ├── styles.css       # Estilos (tokens de marca al inicio: negro #0A0A0B + amarillo #FFD21E)
+    ├── script.js        # Typewriter del titular, menú móvil, animaciones
+    ├── logo-icon.png     # Ícono B (tinta negra) — header sobre claro
+    ├── logo-icon-light.png # Ícono B (tinta blanca) — sobre fondos oscuros
+    ├── wordmark.png      # "byteploy" negro — header sobre claro
+    ├── wordmark-light.png# "byteploy" blanco — footer/contacto (oscuro)
+    ├── cursor.svg        # Cursor "deploy" (caret, viñetas, terminal)
+    ├── circuit.svg       # Trazado de circuito (decoración de secciones)
+    ├── check.svg         # Check amarillo del terminal
+    ├── favicon.ico / favicon-16.png / favicon-32.png   # Favicons (tile negro, B blanca)
+    ├── apple-touch-icon.png / icon-512.png / maskable-512.png
+    ├── og.png            # Imagen para compartir (1200×630)
+    ├── og-source.html    # Fuente para regenerar og.png
+    └── brand/            # PNG originales del logo + process.py (pipeline de assets)
 ```
+
+> **Marca:** negro `#0A0A0B` + amarillo dorado `#FFD21E`, con el motivo de circuito
+> y el cursor de "deploy". Los assets web se generan desde los PNG originales del
+> logo (`assets/brand/*-source.png`) con `assets/brand/process.py`.
 
 ## Ver el sitio en local
 
@@ -90,15 +100,21 @@ Open Graph + Twitter Cards, `hreflang` es/en/x-default, datos estructurados JSON
 (`Organization` + `ProfessionalService` + `FAQPage`), sitemap, robots.txt,
 HTML semántico accesible y rendimiento máximo (sin librerías externas).
 
-## Regenerar imágenes (og / íconos)
+## Regenerar imágenes de marca
 
-Los PNG se generan desde los HTML fuente con Chromium headless:
+**Logos, favicons e íconos** — desde los PNG originales en `assets/brand/`:
+
+```bash
+python3 assets/brand/process.py
+```
+
+Esto produce los recortes transparentes (`logo-icon*.png`, `wordmark*.png`) y todos
+los favicons/íconos (tile negro con la B blanca). Si reemplazas los originales,
+usa los mismos nombres: `assets/brand/icon-source.png` y `wordmark-lower-source.png`.
+
+**Imagen para compartir** (`og.png`, 1200×630) — desde su HTML fuente con Chromium:
 
 ```bash
 chromium --headless=new --hide-scrollbars --window-size=1200,630 \
-  --screenshot=assets/og.png assets/og-source.html
-chromium --headless=new --hide-scrollbars --window-size=512,512 \
-  --screenshot=assets/icon-512.png assets/icon-source.html
-chromium --headless=new --hide-scrollbars --window-size=180,180 \
-  --screenshot=assets/apple-touch-icon.png assets/icon-source.html
+  --default-background-color=00000000 --screenshot=assets/og.png assets/og-source.html
 ```

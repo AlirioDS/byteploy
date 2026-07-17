@@ -6,75 +6,40 @@
 <style>
   * { margin: 0; box-sizing: border-box; }
   body {
-    width: 1200px;
-    height: 630px;
-    overflow: hidden;
+    width: 1200px; height: 630px; overflow: hidden; position: relative;
     font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-    color: #e6edf6;
-    background-color: #070b14;
-    background-image:
-      radial-gradient(760px 420px at 88% -12%, rgba(129, 140, 248, 0.22), transparent 62%),
-      radial-gradient(640px 400px at -8% 30%, rgba(34, 211, 238, 0.16), transparent 58%);
-    display: flex;
-    flex-direction: column;
-    padding: 56px 84px;
-    position: relative;
+    color: #fff; background: #0a0a0b;
+    display: flex; flex-direction: column; padding: 62px 84px;
   }
-  .main {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+  .bar { position: absolute; top: 0; left: 0; right: 0; height: 8px; background: #ffd21e; }
+  .circuit {
+    position: absolute; top: -60px; right: -70px; width: 560px; height: 560px;
+    background: url("circuit.svg") no-repeat center / contain; opacity: 0.18;
   }
-  .bar {
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 8px;
-    background: linear-gradient(100deg, #22d3ee, #818cf8 55%, #c084fc);
-  }
-  .mono { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; }
-  .grad {
-    background: linear-gradient(100deg, #22d3ee, #818cf8 55%, #c084fc);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-  }
-  .top { display: flex; align-items: center; gap: 30px; }
-  .wordmark { font-size: 118px; font-weight: 800; letter-spacing: -0.03em; }
-  .tagline { font-size: 48px; font-weight: 650; margin-top: 34px; }
-  .sub { font-size: 30px; color: #a3b3ca; margin-top: 16px; }
-  .foot {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    font-size: 26px;
-    color: #a3b3ca;
-  }
-  .foot .url { color: #22d3ee; }
+  .top { display: flex; align-items: center; gap: 26px; }
+  .top img.icon { height: 128px; width: auto; }
+  .top img.word { height: 66px; width: auto; }
+  .main { flex: 1; display: flex; flex-direction: column; justify-content: center; }
+  .tagline { font-size: 62px; font-weight: 800; letter-spacing: -0.02em; }
+  .hl { background: #ffd21e; color: #0a0a0b; padding: 0 14px; border-radius: 8px; }
+  .sub { font-size: 29px; color: #a3a3ab; margin-top: 20px; }
+  .foot { display: flex; justify-content: space-between; align-items: baseline; font-size: 26px; color: #a3a3ab; }
+  .foot .url { color: #ffd21e; font-weight: 650; }
 </style>
 </head>
 <body>
   <div class="bar"></div>
+  <div class="circuit"></div>
+  <div class="top">
+    <img class="icon" src="logo-icon-light.png" alt="">
+    <img class="word" src="wordmark-light.png" alt="">
+  </div>
   <div class="main">
-    <div class="top">
-      <svg viewBox="0 0 64 64" width="104" height="104">
-        <defs>
-          <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0" stop-color="#22d3ee"/><stop offset=".55" stop-color="#818cf8"/><stop offset="1" stop-color="#c084fc"/>
-          </linearGradient>
-        </defs>
-        <rect width="64" height="64" rx="14" fill="#0b1220"/>
-        <rect x="1.5" y="1.5" width="61" height="61" rx="12.5" fill="none" stroke="url(#g)" stroke-width="3"/>
-        <path d="M20 22l12 10-12 10" fill="none" stroke="url(#g)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/>
-        <line x1="36.5" y1="42" x2="46" y2="42" stroke="#e6edf6" stroke-width="5.5" stroke-linecap="round"/>
-      </svg>
-      <div class="wordmark mono">byte<span class="grad">ploy</span></div>
-    </div>
-    <div class="tagline">Despliega tu proyecto<span class="grad">_</span></div>
-    <div class="sub">Software a medida · From Chile to the world</div>
+    <div class="tagline">Despliega tu <span class="hl">proyecto</span></div>
+    <div class="sub">Software a medida · Custom software — from Chile to the world</div>
   </div>
   <div class="foot">
-    <span class="url mono">byteploy.com</span>
+    <span class="url">byteploy.com</span>
     <span>Chile 🇨🇱 → 🌎</span>
   </div>
 </body>

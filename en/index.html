@@ -8,7 +8,7 @@
   <meta name="author" content="Byteploy">
   <meta name="robots" content="index, follow, max-image-preview:large">
   <meta name="format-detection" content="telephone=no">
-  <meta name="theme-color" content="#070b14">
+  <meta name="theme-color" content="#ffffff">
 
   <link rel="canonical" href="https://byteploy.com/en/">
   <link rel="alternate" hreflang="es" href="https://byteploy.com/">
@@ -31,7 +31,9 @@
   <meta name="twitter:description" content="Custom software for companies and individuals. From idea to production: design, build, deploy, support.">
   <meta name="twitter:image" content="https://byteploy.com/assets/og.png">
 
-  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="../assets/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../assets/favicon-16.png">
   <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
   <link rel="manifest" href="../site.webmanifest">
   <link rel="stylesheet" href="../assets/styles.css">
@@ -124,17 +126,8 @@
 <header class="site-header" id="top">
   <nav class="nav container" aria-label="Main">
     <a class="brand" href="#top" aria-label="Byteploy — home">
-      <svg class="brand-mark" viewBox="0 0 64 64" width="30" height="30" aria-hidden="true" focusable="false">
-        <defs>
-          <linearGradient id="bg-grad" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0" stop-color="#22d3ee"/><stop offset=".55" stop-color="#818cf8"/><stop offset="1" stop-color="#c084fc"/>
-          </linearGradient>
-        </defs>
-        <rect x="1.5" y="1.5" width="61" height="61" rx="13" fill="#0b1220" stroke="url(#bg-grad)" stroke-width="3"/>
-        <path d="M21 22l12 10-12 10" fill="none" stroke="url(#bg-grad)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/>
-        <line x1="37" y1="42" x2="46" y2="42" stroke="#e6edf6" stroke-width="5.5" stroke-linecap="round"/>
-      </svg>
-      <span class="brand-name">byte<span class="grad-text">ploy</span></span>
+      <img class="brand-mark" src="../assets/logo-icon.png" width="32" height="32" alt="" fetchpriority="high">
+      <img class="brand-word" src="../assets/wordmark.png" width="80" height="21" alt="Byteploy">
     </a>
     <button class="nav-toggle" aria-expanded="false" aria-controls="nav-menu">
       <span class="sr-only">Open menu</span>
@@ -154,12 +147,13 @@
 <main id="content">
 
   <section class="hero">
+    <div class="circuit hero-circuit" aria-hidden="true"></div>
     <div class="container hero-grid">
       <div class="hero-copy">
-        <p class="eyebrow">Software agency · From Chile 🇨🇱 to the world</p>
+        <p class="eyebrow">Software agency · From Chile 🇨🇱 <b>to the world</b></p>
         <h1 class="hero-title">
           <span class="sr-only">Byteploy: deploy your project, your idea, your dream.</span>
-          <span aria-hidden="true"><span class="h1-brand grad-text">byteploy:</span><br>deploy your <span class="typewrap"><span id="typeword" class="typeword" data-words='["project","idea","MVP","prototype","startup","dream","business"]'>project</span><span class="caret"></span></span></span>
+          <span aria-hidden="true">Deploy your <span class="typewrap"><span id="typeword" class="typeword" data-words='["project","idea","MVP","prototype","startup","dream","business"]'>project</span><span class="caret"></span></span></span>
         </h1>
         <p class="hero-sub">We build custom software for companies and individuals — we design it, build it, and get it running in production. You bring the idea; we bring the code and the deploy.</p>
         <div class="hero-cta">
@@ -176,15 +170,15 @@
       <div class="hero-visual" aria-hidden="true">
         <div class="term">
           <div class="term-bar">
-            <span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span>
+            <span class="dot dot-y"></span><span class="dot"></span><span class="dot"></span>
             <span class="term-title">byteploy — deploy</span>
           </div>
-          <pre class="term-body"><code>$ byteploy init "your-idea"
-<span class="t-ok">✔</span> discovery complete
-$ byteploy build --custom
-<span class="t-ok">✔</span> iterative development · weekly demos
-$ byteploy deploy --prod
-<span class="t-ok">✔</span> live → <span class="t-url">https://your-project.com</span> 🚀</code></pre>
+          <pre class="term-body"><code><span class="p">$</span> byteploy init "your-idea"
+<span class="ck" aria-hidden="true"></span> discovery complete
+<span class="p">$</span> byteploy build --custom
+<span class="ck" aria-hidden="true"></span> iterative development · weekly demos
+<span class="p">$</span> byteploy deploy --prod
+<span class="ck" aria-hidden="true"></span> live → <span class="t-url">https://your-project.com</span> <span class="term-cursor"></span></code></pre>
         </div>
       </div>
     </div>
@@ -236,7 +230,8 @@ $ byteploy deploy --prod
     </div>
   </section>
 
-  <section id="process" class="section section-alt">
+  <section id="process" class="section section-dark">
+    <div class="circuit proc-circuit" aria-hidden="true"></div>
     <div class="container">
       <p class="kicker">// process</p>
       <h2 data-reveal>How we work</h2>
@@ -362,9 +357,11 @@ $ byteploy deploy --prod
     </div>
   </section>
 
-  <section id="contact" class="section section-contact">
+  <section id="contact" class="section section-dark section-contact">
+    <div class="circuit contact-circuit" aria-hidden="true"></div>
     <div class="container container-narrow">
       <div class="contact-card" data-reveal>
+        <img class="contact-word" src="../assets/wordmark-light.png" width="152" height="40" alt="Byteploy" loading="lazy">
         <p class="kicker">// contact</p>
         <h2>Let’s talk about your idea</h2>
         <p class="section-sub">Tell us what you want to build and we’ll reply with next steps. The first conversation is free, with no commitment.</p>
@@ -385,17 +382,7 @@ $ byteploy deploy --prod
   <div class="container footer-grid">
     <div class="footer-brand">
       <a class="brand" href="#top" aria-label="Byteploy — back to top">
-        <svg class="brand-mark" viewBox="0 0 64 64" width="26" height="26" aria-hidden="true" focusable="false">
-          <defs>
-            <linearGradient id="bg-grad-f" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0" stop-color="#22d3ee"/><stop offset=".55" stop-color="#818cf8"/><stop offset="1" stop-color="#c084fc"/>
-            </linearGradient>
-          </defs>
-          <rect x="1.5" y="1.5" width="61" height="61" rx="13" fill="#0b1220" stroke="url(#bg-grad-f)" stroke-width="3"/>
-          <path d="M21 22l12 10-12 10" fill="none" stroke="url(#bg-grad-f)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/>
-          <line x1="37" y1="42" x2="46" y2="42" stroke="#e6edf6" stroke-width="5.5" stroke-linecap="round"/>
-        </svg>
-        <span class="brand-name">byte<span class="grad-text">ploy</span></span>
+        <img class="footer-word" src="../assets/wordmark-light.png" width="99" height="26" alt="Byteploy" loading="lazy">
       </a>
       <p>Custom software, from Chile to the world.</p>
     </div>

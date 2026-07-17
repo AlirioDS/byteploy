@@ -12,3 +12,11 @@ Thumbs.db
 
 # Dependencias (si el proyecto crece a un stack con build)
 node_modules/
+
+# Originales del logo dejados en la raíz — la copia canónica vive en assets/brand/
+/logo byteploy.png
+/nombre byteploy.png
+/nombre Byteploy (2).png
+
+# Informe de bancos (referencia; se versiona aparte si se decide)
+/docs/bancos-chile-2026-07.md

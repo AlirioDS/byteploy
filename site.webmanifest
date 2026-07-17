@@ -4,10 +4,12 @@
   "description": "Software a medida, desde Chile para el mundo.",
   "start_url": "/",
   "display": "browser",
-  "background_color": "#070b14",
-  "theme_color": "#070b14",
+  "background_color": "#0a0a0b",
+  "theme_color": "#ffffff",
   "icons": [
-    { "src": "assets/favicon.svg", "sizes": "any", "type": "image/svg+xml" },
-    { "src": "assets/icon-512.png", "sizes": "512x512", "type": "image/png" }
+    { "src": "assets/favicon-32.png", "sizes": "32x32", "type": "image/png" },
+    { "src": "assets/apple-touch-icon.png", "sizes": "180x180", "type": "image/png" },
+    { "src": "assets/icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "assets/maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
   ]
 }
