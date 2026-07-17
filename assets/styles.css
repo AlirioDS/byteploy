@@ -309,11 +309,7 @@ section[id], footer[id] { scroll-margin-top: calc(var(--header-h) + 16px); }
 
 /* ---------- Footer ---------- */
 
-.site-footer { background: var(--ink); color: var(--paper); padding: 44px 0 34px; border-top: 1px solid var(--line-d); }
-.footer-grid { display: grid; grid-template-columns: 1fr; gap: 22px; }
-.footer-word { height: 26px; width: auto; display: block; margin-bottom: 12px; }
-.footer-brand p { color: var(--muted-d); font-size: 0.92rem; margin: 0; max-width: 34ch; }
-.footer-legal { border-top: 1px solid var(--line-d); padding-top: 22px; }
+.site-footer { background: var(--ink); color: var(--paper); padding: 30px 0; border-top: 1px solid var(--line-d); }
 .footer-legal p { color: var(--muted-d); font-size: 0.82rem; margin: 0; }
 
 /* ---------- Reveal ---------- */
@@ -330,8 +326,6 @@ section[id], footer[id] { scroll-margin-top: calc(var(--header-h) + 16px); }
 @media (max-width: 880px) {
   .hero-grid { grid-template-columns: 1fr; }
   .hero-visual { max-width: 560px; }
-  .footer-grid { grid-template-columns: 1fr; }
-  .footer-nav { justify-content: flex-start; }
 }
 @media (max-width: 760px) {
   .nav-toggle { display: inline-flex; }
