@@ -284,6 +284,24 @@ h2 { font-size: clamp(28px, 3.6vw, 42px); font-weight: 800; letter-spacing: -0.0
 .card h3.flag { display: flex; align-items: center; gap: 10px; margin-top: 0; }
 .card h3 .emoji { font-size: 26px; }
 
+/* ---------- Garantías verificables ---------- */
+
+.verify-panel { margin-top: 18px; background: #fffdf7; border: 1px solid var(--line); border-radius: 16px; overflow: hidden; }
+.verify-bar { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 13px 20px; background: var(--dark2); font: 500 13px/1 var(--font-mono); }
+.verify-cmd { color: var(--dtext); }
+.verify-cmd::before { content: "$ "; color: var(--yellow); }
+.verify-count { color: var(--yellow); letter-spacing: 0.04em; }
+.verify-list { display: grid; }
+.verify-row { display: grid; grid-template-columns: 15px 150px 1fr; align-items: start; gap: 8px 16px; padding: 15px 20px; border-top: 1px solid var(--line); }
+.verify-row:first-child { border-top: 0; }
+.verify-check {
+  width: 15px; height: 15px; margin-top: 0.22em; background: var(--yellow2);
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='3.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6L9 17l-5-5'/%3E%3C/svg%3E") center/contain no-repeat;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='3.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6L9 17l-5-5'/%3E%3C/svg%3E") center/contain no-repeat;
+}
+.verify-slug { font: 500 13px/1.55 var(--font-mono); color: var(--ink); }
+.verify-row p { margin: 0; font-size: 14.5px; color: var(--ink2); }
+
 /* ---------- Liderazgo ---------- */
 
 .lead-grid { display: grid; grid-template-columns: 1fr 1.9fr; gap: 52px; align-items: center; margin-top: 8px; }
@@ -406,6 +424,8 @@ h2 { font-size: clamp(28px, 3.6vw, 42px); font-weight: 800; letter-spacing: -0.0
   .chips { flex-direction: column; align-items: stretch; }
   /* Terminal: fuente menor + wrap de líneas largas (legible sin scroll lateral) */
   .term-body { font-size: 12px; line-height: 1.9; padding: 16px 16px 20px; white-space: pre-wrap; overflow-wrap: anywhere; overflow-x: hidden; }
+  .verify-row { grid-template-columns: 15px 1fr; }
+  .verify-row p { grid-column: 2; }
 }
 
 /* ---------- Movimiento reducido ---------- */
