@@ -242,6 +242,19 @@ h2 { font-size: clamp(28px, 3.6vw, 42px); font-weight: 800; letter-spacing: -0.0
 .road-card h3 { font-size: 16.5px; font-weight: 800; margin-bottom: 6px; }
 .road-card p { font-size: 13.5px; color: var(--ink2); }
 
+/* ---------- Caso / producto (Makundal) ---------- */
+
+.case-card { display: grid; grid-template-columns: 1.5fr 1fr; background: var(--paper2); border: 1px solid var(--line); border-radius: 16px; overflow: hidden; margin-top: 44px; }
+.case-info { padding: 34px; }
+.case-badge { display: inline-block; font: 600 12px/1 var(--font-mono); letter-spacing: 0.04em; color: #7a5f00; background: rgba(255, 210, 31, 0.16); border: 1px solid rgba(201, 158, 0, 0.35); border-radius: 999px; padding: 7px 14px; margin-bottom: 16px; }
+.case-info h3 { font-size: 26px; font-weight: 800; letter-spacing: -0.01em; }
+.case-info > p { color: var(--ink2); font-size: 15.5px; margin-top: 8px; max-width: 52ch; }
+.case-info .btn { margin-top: 22px; }
+.case-client { background: var(--dark2); color: var(--dtext); padding: 34px; display: flex; flex-direction: column; justify-content: center; gap: 6px; }
+.case-client-label { font: 600 11.5px/1 var(--font-mono); letter-spacing: 0.12em; text-transform: uppercase; color: var(--dmuted); }
+.case-client-name { font-size: 24px; font-weight: 800; color: var(--yellow); }
+.case-client-note { font-size: 14px; color: var(--dmuted); }
+
 /* ---------- Alt + grids ---------- */
 
 .section-alt { background: #efece2; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
@@ -303,6 +316,9 @@ h2 { font-size: clamp(28px, 3.6vw, 42px); font-weight: 800; letter-spacing: -0.0
 .form-submit[disabled] { opacity: 0.6; cursor: wait; transform: none; }
 .form-status { font-size: 14px; color: var(--yellow); min-height: 1.4em; }
 .form-status.is-err { color: #f0a58c; }
+.btn-ghost-light { border-color: rgba(242, 242, 244, 0.35); color: var(--dtext); }
+.btn-ghost-light:hover { border-color: var(--yellow); color: var(--yellow); }
+.contact-alt { margin-top: 16px; }
 .contact-mail { margin-top: 22px; font-size: 14.5px; color: var(--dmuted); }
 .contact-mail a { color: var(--dtext); }
 .contact-mail a:hover { color: var(--yellow); }
@@ -323,6 +339,7 @@ h2 { font-size: clamp(28px, 3.6vw, 42px); font-weight: 800; letter-spacing: -0.0
 /* ---------- Responsive ---------- */
 
 @media (max-width: 1000px) {
+  .case-card { grid-template-columns: 1fr; }
   .steps { grid-template-columns: repeat(2, 1fr); }
   .road-grid { grid-template-columns: repeat(2, 1fr); }
   .road-line { display: none; }
