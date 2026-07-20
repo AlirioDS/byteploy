@@ -242,20 +242,38 @@ h2 { font-size: clamp(28px, 3.6vw, 42px); font-weight: 800; letter-spacing: -0.0
 .road-card h3 { font-size: 16.5px; font-weight: 800; margin-bottom: 6px; }
 .road-card p { font-size: 13.5px; color: var(--ink2); }
 
-/* ---------- Caso / producto (Makundal) ---------- */
+/* ---------- Caso / producto (Makundal): ventana de navegador sobre
+   placa amarilla (el subrayador del hero marcando lo real) + barra de
+   estado de producción + inventario de módulos en mono ---------- */
 
-.case-card { display: grid; grid-template-columns: 1.5fr 1fr; background: var(--paper2); border: 1px solid var(--line); border-radius: 16px; overflow: hidden; margin-top: 44px; }
-.case-media { grid-column: 1 / -1; border-bottom: 1px solid var(--line); background: var(--dark); }
-.case-media img { width: 100%; display: block; }
-.case-info { padding: 34px; }
-.case-badge { display: inline-block; font: 600 12px/1 var(--font-mono); letter-spacing: 0.04em; color: #7a5f00; background: rgba(255, 210, 31, 0.16); border: 1px solid rgba(201, 158, 0, 0.35); border-radius: 999px; padding: 7px 14px; margin-bottom: 16px; }
-.case-info h3 { font-size: 26px; font-weight: 800; letter-spacing: -0.01em; }
-.case-info > p { color: var(--ink2); font-size: 15.5px; margin-top: 8px; max-width: 52ch; }
-.case-info .btn { margin-top: 22px; }
-.case-client { background: var(--dark2); color: var(--dtext); padding: 34px; display: flex; flex-direction: column; justify-content: center; gap: 6px; }
-.case-client-label { font: 600 11.5px/1 var(--font-mono); letter-spacing: 0.12em; text-transform: uppercase; color: var(--dmuted); }
-.case-client-name { font-size: 24px; font-weight: 800; color: var(--yellow); }
-.case-client-note { font-size: 14px; color: var(--dmuted); }
+.case-show { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: clamp(28px, 4vw, 56px); align-items: start; margin-top: 48px; }
+.case-show > * { min-width: 0; }
+
+.case-window { padding-right: 14px; }
+.case-frame {
+  background: var(--dark); border: 1px solid var(--dline); border-radius: 14px; overflow: hidden;
+  /* placa amarilla: el subrayador del hero marcando el producto real */
+  box-shadow: 14px 14px 0 0 var(--yellow), 24px 44px 60px -24px rgba(17, 17, 20, 0.35);
+}
+.case-frame-bar { display: flex; align-items: center; gap: 7px; padding: 11px 14px; border-bottom: 1px solid var(--dline); }
+.case-url { margin-left: 10px; font: 500 12px/1 var(--font-mono); color: var(--dmuted); background: var(--dark2); border: 1px solid var(--dline); border-radius: 999px; padding: 6px 14px; }
+.case-url b { color: var(--yellow); font-weight: 600; }
+.case-frame img { width: 100%; display: block; }
+
+.case-status { display: flex; align-items: center; flex-wrap: wrap; gap: 10px 14px; margin-top: 28px; background: var(--dark2); border: 1px solid var(--dline); border-radius: 12px; padding: 13px 18px; }
+.case-status-live { display: inline-flex; align-items: center; gap: 8px; font: 600 12px/1 var(--font-mono); letter-spacing: 0.1em; color: var(--yellow); }
+.case-status-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--yellow); animation: pulse 2s ease-in-out infinite; }
+@keyframes pulse { 50% { opacity: 0.35; } }
+.case-status p { font-size: 13.5px; color: var(--dmuted); margin: 0; }
+.case-status p b { color: var(--dtext); font-weight: 700; }
+
+.case-id .case-badge { display: inline-block; font: 600 12px/1 var(--font-mono); letter-spacing: 0.04em; color: #7a5f00; background: rgba(255, 210, 31, 0.16); border: 1px solid rgba(201, 158, 0, 0.35); border-radius: 999px; padding: 7px 14px; margin-bottom: 18px; }
+.case-id h3 { font-size: clamp(28px, 3vw, 36px); font-weight: 800; letter-spacing: -0.02em; line-height: 1.05; }
+.case-role { font: 600 13px/1.5 var(--font-mono); color: #7a5f00; margin-top: 8px; }
+.case-id > p { color: var(--ink2); font-size: 15.5px; margin-top: 14px; max-width: 46ch; }
+.case-modules { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
+.case-modules li { font: 500 12.5px/1 var(--font-mono); color: var(--ink2); background: var(--paper2); border: 1px solid var(--line); border-radius: 8px; padding: 8px 12px; }
+.case-id .btn { margin-top: 24px; }
 
 /* ---------- Alt + grids ---------- */
 
@@ -341,7 +359,9 @@ h2 { font-size: clamp(28px, 3.6vw, 42px); font-weight: 800; letter-spacing: -0.0
 /* ---------- Responsive ---------- */
 
 @media (max-width: 1000px) {
-  .case-card { grid-template-columns: 1fr; }
+  .case-show { grid-template-columns: 1fr; }
+  .case-window { padding-right: 10px; }
+  .case-frame { box-shadow: 10px 10px 0 0 var(--yellow), 18px 34px 50px -22px rgba(17, 17, 20, 0.35); }
   .steps { grid-template-columns: repeat(2, 1fr); }
   .road-grid { grid-template-columns: repeat(2, 1fr); }
   .road-line { display: none; }
@@ -383,7 +403,7 @@ h2 { font-size: clamp(28px, 3.6vw, 42px); font-weight: 800; letter-spacing: -0.0
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .reveal { opacity: 1; transform: none; transition: none; }
-  .caret, .term-cursor { animation: none; }
+  .caret, .term-cursor, .case-status-dot { animation: none; }
   .btn, .card, .road-card { transition: none; }
   .btn:hover, .card:hover, .road-card:hover { transform: none; }
 }
