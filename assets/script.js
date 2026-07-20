@@ -96,7 +96,8 @@
     }
   }
 
-  // Formulario de contacto: envío AJAX (web3forms), sin recargar la página.
+  // Formulario de contacto: envío AJAX al endpoint propio (/api/contact,
+  // Cloudflare Pages Function que valida Turnstile y envía con Resend).
   // Sin JS, el <form> hace POST nativo al mismo endpoint (fallback funcional).
   const form = $("#contact-form");
   if (form) {
@@ -106,17 +107,40 @@
       statusEl.textContent = msg || "";
       statusEl.classList.toggle("is-err", kind === "err");
     };
+
+    // Turnstile: el script de Cloudflare se carga recién cuando el usuario
+    // interactúa con el formulario (no pesa en la carga inicial de la página).
+    const tsBox = $(".cf-turnstile", form);
+    const tsKey = tsBox ? tsBox.dataset.sitekey || "" : "";
+    const tsReady = tsKey && !/PON-AQUI|SITE-KEY/i.test(tsKey);
+    if (tsReady) {
+      form.addEventListener(
+        "focusin",
+        () => {
+          tsBox.style.minHeight = "65px"; // reserva el alto del widget
+          const s = document.createElement("script");
+          s.src = "https://challenges.cloudflare.com/turnstile/v0/api.js";
+          s.async = true;
+          document.head.appendChild(s);
+        },
+        { once: true }
+      );
+    }
+
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
       setStatus("", null);
       if (form.botcheck && form.botcheck.checked) return; // honeypot
       if (!form.checkValidity()) { form.reportValidity(); return; }
-      const key = form.elements.access_key ? form.elements.access_key.value : "";
-      if (!key || /PON-AQUI|ACCESS-KEY|YOUR/i.test(key)) {
-        setStatus(form.dataset.config, "err"); // clave aún sin configurar
+      if (!tsReady) {
+        setStatus(form.dataset.config, "err"); // sitekey aún sin configurar
         return;
       }
       const data = Object.fromEntries(new FormData(form).entries());
+      if (!data["cf-turnstile-response"]) {
+        setStatus(form.dataset.captcha, "err"); // widget sin resolver todavía
+        return;
+      }
       const label = btn.textContent;
       btn.disabled = true;
       btn.textContent = form.dataset.sending || "…";
@@ -133,6 +157,7 @@
         } else {
           setStatus(out.message || form.dataset.err, "err");
         }
+        if (window.turnstile) window.turnstile.reset(); // token es de un solo uso
       } catch (_) {
         setStatus(form.dataset.err, "err");
       } finally {

@@ -23,3 +23,5 @@ node_modules/
 /docs/verificacion-claims-legales-2026-07.md
 /docs/research-landing-agencias-latam-2026-07.md
 __pycache__/
+dist/
+.wrangler/

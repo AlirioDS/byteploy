@@ -348,6 +348,8 @@ h2 { font-size: clamp(28px, 3.6vw, 42px); font-weight: 800; letter-spacing: -0.0
 .field textarea { resize: vertical; min-height: 110px; }
 .form-submit { justify-self: start; }
 .form-submit[disabled] { opacity: 0.6; cursor: wait; transform: none; }
+/* Widget Turnstile: vacío no ocupa alto; el JS reserva 65px al cargarlo */
+.cf-turnstile { justify-self: start; line-height: 0; }
 .form-status { font-size: 14px; color: var(--yellow); min-height: 1.4em; }
 .form-status.is-err { color: #f0a58c; }
 /* Canales directos: tabla compacta de endpoints (email / whatsapp) */

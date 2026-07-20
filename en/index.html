@@ -423,22 +423,21 @@
       <p class="kicker">// corporate contact</p>
       <h2>Let’s talk about your project</h2>
       <p class="section-sub">Tell us what challenge you want to solve and we’ll schedule a discovery call: free, no strings attached.</p>
-      <form class="contact-form" id="contact-form" action="https://api.web3forms.com/submit" method="POST"
+      <form class="contact-form" id="contact-form" action="/api/contact" method="POST"
             novalidate
             data-ok="Thanks! We received your request and will reply very soon."
             data-err="We couldn’t send your message. Try again or email info@byteploy.com."
             data-config="Form is being set up. In the meantime, email us at info@byteploy.com."
+            data-captcha="Please complete the anti-bot check before sending."
             data-sending="Sending…">
-        <!-- Replace the value with your web3forms.com Access Key (free, linked to info@byteploy.com) -->
-        <input type="hidden" name="access_key" value="PON-AQUI-TU-ACCESS-KEY-DE-WEB3FORMS">
-        <input type="hidden" name="subject" value="New corporate contact from byteploy.com">
-        <input type="hidden" name="from_name" value="Byteploy Website">
         <input type="checkbox" name="botcheck" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
         <div class="form-row">
           <div class="field"><label for="cf-nombre">Name and company</label><input id="cf-nombre" name="name" type="text" autocomplete="name" required placeholder="Your name / Company"></div>
           <div class="field"><label for="cf-email">Work email</label><input id="cf-email" name="email" type="email" autocomplete="email" required placeholder="you@company.com"></div>
         </div>
         <div class="field"><label for="cf-mensaje">Project requirements</label><textarea id="cf-mensaje" name="message" rows="4" required placeholder="Tell us the technical goals, required integrations and expected timelines."></textarea></div>
+        <!-- Replace the value with your Turnstile widget Site Key (Cloudflare > Turnstile) -->
+        <div class="cf-turnstile" data-sitekey="PON-AQUI-TU-SITE-KEY-DE-TURNSTILE" data-theme="dark" data-language="en"></div>
         <button class="btn btn-primary form-submit" type="submit">Get a quote</button>
         <p class="form-status" role="status" aria-live="polite"></p>
       </form>
