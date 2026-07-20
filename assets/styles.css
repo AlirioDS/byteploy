@@ -313,7 +313,7 @@ h2 { font-size: clamp(28px, 3.6vw, 42px); font-weight: 800; letter-spacing: -0.0
 .lead-role { font: 600 13px/1.6 var(--font-mono); color: var(--yellow2); }
 .founder-links { display: flex; gap: 18px; margin-top: 12px; flex-wrap: wrap; justify-content: center; }
 .founder-links a { font: 500 13px/1.4 var(--font-mono); color: var(--ink2); text-decoration-thickness: 1.5px; }
-.founder-links a .ext { vertical-align: -1px; }
+.ext { vertical-align: -1px; }
 .founder-links a:hover { color: var(--yellow2); }
 .lead-bio { font-size: 16.5px; color: var(--ink2); margin-top: 14px; text-wrap: pretty; }
 .quote { border-left: 4px solid var(--yellow); padding: 6px 0 6px 20px; margin-top: 26px; font-style: italic; color: var(--ink2); font-size: 16px; max-width: 60ch; text-wrap: pretty; }
