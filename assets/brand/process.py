@@ -15,7 +15,7 @@ import os
 SRC = os.path.dirname(__file__)
 OUT = os.path.dirname(SRC)  # assets/
 SAT = 45                 # umbral de saturación para detectar amarillo
-GOLD = (235, 197, 71)    # oro de paleta (#EBC547) al que se remapea el amarillo del logo
+GOLD = (255, 210, 31)    # amarillo v2 (#FFD21F) al que se remapea el amarillo del logo
 REF_LUMA = 214.0         # luma del amarillo puro del logo (255,219,45), referencia de escala
 
 def load_rgb(name):

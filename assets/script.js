@@ -9,6 +9,14 @@
   const year = $("#year");
   if (year) year.textContent = new Date().getFullYear();
 
+  // Header: sombra al hacer scroll
+  const header = $(".site-header");
+  if (header) {
+    const onScroll = () => header.classList.toggle("scrolled", window.scrollY > 8);
+    addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+  }
+
   // Menú móvil
   const toggle = $(".nav-toggle");
   const menu = $("#nav-menu");
@@ -39,7 +47,7 @@
       words = [];
     }
     if (words.length > 1) {
-      const TYPE = 75, ERASE = 42, HOLD = 1900, GAP = 350;
+      const TYPE = 85, ERASE = 45, HOLD = 1800, GAP = 320;
       let i = 1;
       const type = (w, n, done) => {
         word.textContent = w.slice(0, n);
@@ -62,14 +70,17 @@
     }
   }
 
-  // Aparición suave al hacer scroll (progressive enhancement:
-  // sin JS los elementos quedan visibles, la clase .reveal se agrega aquí)
+  // Aparición suave al hacer scroll con stagger (progressive enhancement:
+  // sin JS los elementos quedan visibles; la clase .reveal se agrega aquí)
   const targets = $$("[data-reveal]");
   if (targets.length) {
     if (reduced || !("IntersectionObserver" in window)) {
       targets.forEach((t) => t.classList.add("in"));
     } else {
-      targets.forEach((t) => t.classList.add("reveal"));
+      targets.forEach((t, i) => {
+        t.classList.add("reveal");
+        t.style.transitionDelay = (i % 4) * 70 + "ms";
+      });
       const io = new IntersectionObserver(
         (entries) => {
           entries.forEach((entry) => {
@@ -93,7 +104,6 @@
     const btn = $(".form-submit", form);
     const setStatus = (msg, kind) => {
       statusEl.textContent = msg || "";
-      statusEl.classList.toggle("is-ok", kind === "ok");
       statusEl.classList.toggle("is-err", kind === "err");
     };
     form.addEventListener("submit", async (e) => {
@@ -108,9 +118,8 @@
       }
       const data = Object.fromEntries(new FormData(form).entries());
       const label = btn.textContent;
-      form.classList.add("is-sending");
       btn.disabled = true;
-      btn.textContent = "…";
+      btn.textContent = form.dataset.sending || "…";
       try {
         const res = await fetch(form.action, {
           method: "POST",
@@ -127,7 +136,6 @@
       } catch (_) {
         setStatus(form.dataset.err, "err");
       } finally {
-        form.classList.remove("is-sending");
         btn.disabled = false;
         btn.textContent = label;
       }

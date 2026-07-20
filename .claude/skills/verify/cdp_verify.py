@@ -184,14 +184,13 @@ try:
     check("anchor nav scrolls", cdp.js("scrollY") > 200 and cdp.js("location.hash") == "#servicios",
           f"y={cdp.js('scrollY')} hash={cdp.js('location.hash')}")
 
-    # --- 6. EN toggle navigates to /en/ ---
-    cdp.js("document.querySelector('.nav-lang').click()")
+    # --- 6. EN toggle navigates to /en/ (pill ES/EN del navbar) ---
+    cdp.js("document.querySelector('.lang-pair a[hreflang=\"en\"]').click()")
     time.sleep(1.2); cdp.drain(0.5)
     check("EN toggle -> /en/", cdp.js("location.pathname") == "/en/", cdp.js("location.href"))
     check("EN typewriter word list", "project" in (cdp.js(
         "document.getElementById('typeword')?.dataset.words || ''")), "")
-    # back to ES from EN navbar language toggle (footer no longer has lang links)
-    cdp.js("document.querySelector('.nav-lang').click()")
+    cdp.js("document.querySelector('.lang-pair a[hreflang=\"es\"]').click()")
     time.sleep(1.2); cdp.drain(0.5)
     check("ES toggle from EN navbar -> /", cdp.js("location.pathname") == "/", cdp.js("location.href"))
 
