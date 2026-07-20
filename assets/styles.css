@@ -245,6 +245,8 @@ h2 { font-size: clamp(28px, 3.6vw, 42px); font-weight: 800; letter-spacing: -0.0
 /* ---------- Caso / producto (Makundal) ---------- */
 
 .case-card { display: grid; grid-template-columns: 1.5fr 1fr; background: var(--paper2); border: 1px solid var(--line); border-radius: 16px; overflow: hidden; margin-top: 44px; }
+.case-media { grid-column: 1 / -1; border-bottom: 1px solid var(--line); background: var(--dark); }
+.case-media img { width: 100%; display: block; }
 .case-info { padding: 34px; }
 .case-badge { display: inline-block; font: 600 12px/1 var(--font-mono); letter-spacing: 0.04em; color: #7a5f00; background: rgba(255, 210, 31, 0.16); border: 1px solid rgba(201, 158, 0, 0.35); border-radius: 999px; padding: 7px 14px; margin-bottom: 16px; }
 .case-info h3 { font-size: 26px; font-weight: 800; letter-spacing: -0.01em; }
