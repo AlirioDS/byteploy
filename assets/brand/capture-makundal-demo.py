@@ -3,7 +3,10 @@
 import base64, hashlib, json, os, socket, struct, subprocess, sys, time, urllib.request, tempfile
 
 PORT = 9236
-BASE = "http://acme.staging.example:3000"
+# Config por entorno: URL del staging local y credenciales seed (nunca en el repo)
+BASE = os.environ.get("DEMO_BASE_URL", "http://localhost:3000")
+DEMO_EMAIL = os.environ.get("DEMO_EMAIL", "admin@example.com")
+DEMO_PASSWORD = os.environ.get("DEMO_PASSWORD", "changeme")
 OUT = os.path.dirname(os.path.abspath(__file__)) + "/mkframes"
 os.makedirs(OUT, exist_ok=True)
 
@@ -105,15 +108,17 @@ try:
     # 1. login
     cdp.goto(BASE + "/sign_in", 2.5)
     print("at:", cdp.js("location.href"))
-    ok = cdp.js("""(() => {
+    login_js = """(() => {
       const email = document.querySelector('input[type=email], input[name*="email"]');
       const pass  = document.querySelector('input[type=password]');
       if (!email || !pass) return 'no-fields';
       const set = (el, v) => { const s = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, 'value').set; s.call(el, v); el.dispatchEvent(new Event('input', {bubbles: true})); };
-      set(email, 'admin@example.com'); set(pass, 'CHANGEME');
+      set(email, __EMAIL__); set(pass, __PASSWORD__);
       (email.closest('form')).requestSubmit();
       return 'submitted';
-    })()""")
+    })()"""
+    login_js = login_js.replace("__EMAIL__", json.dumps(DEMO_EMAIL)).replace("__PASSWORD__", json.dumps(DEMO_PASSWORD))
+    ok = cdp.js(login_js)
     print("login:", ok)
     time.sleep(3)
     print("after login:", cdp.js("location.href"))

@@ -25,3 +25,7 @@ node_modules/
 __pycache__/
 dist/
 .wrangler/
+
+# Runbook operacional local (no se publica)
+/DEPLOY.md
+/docs/auditoria-landing-seo-2026-07.md
