@@ -1,4 +1,4 @@
-# Byteploy — sitio web comercial
+# Byteploy · sitio web comercial
 
 Sitio de **[Byteploy](https://byteploy.com)**, agencia chilena de desarrollo de
 software a medida. Español en `/` e inglés en `/en/`.
