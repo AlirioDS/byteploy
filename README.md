@@ -1,48 +1,42 @@
 # Byteploy — sitio web comercial
 
-Sitio web de **Byteploy**, agencia chilena de desarrollo de software a medida.
-Español en `/` (mercado principal: Chile) e inglés en `/en/` (clientes internacionales).
+Sitio de **[Byteploy](https://byteploy.com)**, agencia chilena de desarrollo de
+software a medida. Español en `/` e inglés en `/en/`.
 
-**Stack:** HTML + CSS + JavaScript estático, cero dependencias y cero paso de build.
-Elegido a propósito: carga instantánea (Core Web Vitals al máximo, factor de ranking en Google),
-hosting gratuito en cualquier plataforma y nada que mantener ni actualizar.
+**Stack: HTML + CSS + JS estático, cero dependencias, cero build.** Elegido a
+propósito: Lighthouse 100/100/100/100 en ambas páginas, CLS 0, fuentes
+self-hosted (sin CDN) y nada que mantener. La única pieza dinámica es el
+formulario de contacto: una Cloudflare Pages Function (`functions/api/contact.js`)
+que valida Cloudflare Turnstile en el servidor y envía el correo vía API de Brevo.
 
 ## Estructura
 
 ```
-├── index.html          # Página principal en español (es)
-├── en/index.html       # Versión en inglés (en)
-├── 404.html            # Página de error (autocontenida)
-├── robots.txt          # Permite indexación + apunta al sitemap
-├── sitemap.xml         # Ambos idiomas con alternates hreflang
-├── site.webmanifest    # Nombre, colores e íconos
+├── index.html            # Página principal (es)
+├── en/index.html         # Versión en inglés (en)
+├── 404.html              # Error autocontenido
+├── robots.txt            # Indexación + sitemap
+├── sitemap.xml           # Ambos idiomas con alternates hreflang
+├── site.webmanifest
+├── functions/api/contact.js   # Endpoint del formulario (Turnstile + Brevo)
+├── scripts/
+│   ├── build.sh          # Arma dist/ (lo publicable, sin fuentes de marca)
+│   └── deploy.sh         # Deploy manual de respaldo (wrangler)
+├── .github/workflows/deploy.yml  # CI: push a main = deploy a Cloudflare Pages
+├── .claude/skills/verify/        # Suite de verificación (16 chequeos CDP)
 └── assets/
-    ├── styles.css       # Estilos (tokens de marca al inicio: negro #0A0A0B + amarillo #FFD21E)
-    ├── script.js        # Typewriter del titular, menú móvil, animaciones
-    ├── logo-icon.png     # Ícono B (tinta negra) — header sobre claro
-    ├── logo-icon-light.png # Ícono B (tinta blanca) — sobre fondos oscuros
-    ├── wordmark.png      # "byteploy" negro — header sobre claro
-    ├── wordmark-light.png# "byteploy" blanco — footer/contacto (oscuro)
-    ├── cursor.svg        # Cursor "deploy" (caret, viñetas, terminal)
-    ├── circuit.svg       # Trazado de circuito (decoración de secciones)
-    ├── check.svg         # Check amarillo del terminal
-    ├── favicon.ico / favicon-16.png / favicon-32.png   # Favicons (tile negro, B blanca)
-    ├── apple-touch-icon.png / icon-512.png / maskable-512.png
-    ├── og.png            # Imagen para compartir (1200×630)
-    ├── og-source.html    # Fuente para regenerar og.png
-    ├── fonts/            # Manrope (variable, self-hosted, subset latin, woff2)
-    └── brand/            # PNG originales del logo + process.py (pipeline de assets)
+    ├── styles.css        # Tokens de marca al inicio (papel/tinta/amarillo)
+    ├── script.js         # Typewriter, terminal animado, reveal, menú, formulario
+    ├── fonts/            # Manrope variable + IBM Plex Mono (woff2, subset latin)
+    ├── wordmark*.png, favicons, og.png, founder.jpg, makundal-demo.gif
+    └── brand/            # Fuentes de marca + pipeline (no se publica en dist/)
 ```
 
-> **Marca:** paleta `#0E0E10` (tinta) · `#EBC547` (oro) · `#C8923A` (bronce) ·
-> `#F6F4EF` (crema), con el motivo de circuito y el cursor de "deploy".
-> **Tipografía:** Manrope (variable, self-hosted en `assets/fonts/` — sin CDN):
-> display 800, wordmark/UI fuerte 600, cuerpo 500, UI 400. Código/terminal en
-> monoespaciada del sistema. Los assets del logo se generan desde los PNG
-> originales (`assets/brand/*-source.png`) con `assets/brand/process.py`, que
-> remapea el amarillo del logo al oro de paleta `#EBC547`.
+> **Marca:** papel `#F6F4EF` · tinta `#111114` · amarillo `#FFD21F` · oro
+> `#C99E00`, con motivo de terminal/deploy. **Tipografía:** Manrope
+> (display 800 / cuerpo 500) + IBM Plex Mono (labels, terminal), self-hosted.
 
-## Ver el sitio en local
+## Desarrollo local
 
 ```bash
 python3 -m http.server 8000
@@ -50,83 +44,57 @@ python3 -m http.server 8000
 # → http://localhost:8000/en/    (inglés)
 ```
 
-## Checklist antes de publicar
+El formulario en local muestra "en configuración" (no hay endpoint ni captcha
+fuera de Cloudflare); es el comportamiento esperado.
 
-- [ ] **Dominio**: todo el sitio usa `https://byteploy.com` como marcador de posición.
-      Cuando tengas el dominio real, reemplázalo en un solo comando:
-      ```bash
-      grep -rl 'byteploy.com' index.html en/index.html sitemap.xml robots.txt \
-        | xargs sed -i 's|byteploy\.com|TU-DOMINIO|g'
-      ```
-- [ ] **Formulario de contacto** (⚠️ activar antes de publicar): usa
-      [web3forms.com](https://web3forms.com) — envío de formularios sin servidor, gratis.
-      1. Entra a web3forms.com, escribe `info@byteploy.com` y te llega una **Access Key**.
-      2. Pega esa clave en el `value="PON-AQUI-TU-ACCESS-KEY-DE-WEB3FORMS"` de
-         `index.html` **y** `en/index.html` (campo oculto `access_key` del `<form>`).
-      Mientras la clave sea el placeholder, el formulario muestra un aviso amable y no
-      envía; con la clave real, los mensajes llegan a `info@byteploy.com`. Alternativa
-      "propia" (sin terceros): Cloudflare Pages Functions + Resend/MailChannels.
-- [ ] **Correo de contacto**: `info@byteploy.com` en `mailto:`, JSON-LD y formulario.
-      Asegúrate de que el buzón exista de verdad (o cámbialo con un `grep -rl` + `sed`).
-- [ ] **WhatsApp** (opcional): hay un botón comentado en la sección de contacto de ambas
-      páginas — descomenta y pon tu número en formato internacional (`56 9 XXXX XXXX`).
-- [ ] **Redes sociales**: cuando existan, agrega `"sameAs": ["https://..."]` al bloque
-      JSON-LD `Organization` de ambas páginas (ayuda al SEO de marca).
-- [ ] Revisa la lista de tecnologías y los textos de servicios por si quieres ajustar el alcance.
-
-## Publicar (deploy)
-
-Cualquiera de estas opciones sirve tal cual, sin build:
-
-- **Cloudflare Pages** (recomendado: CDN global gratis + dominio + SSL):
-  conecta el repo, framework "None", build command vacío, output `/`.
-- **GitHub Pages**: push del repo → Settings → Pages → branch `main` → root.
-  Con dominio propio: agrega el dominio en Pages y crea el registro DNS que te indica.
-- **Netlify / Vercel**: importa el repo, sin comando de build, directorio de salida `/`.
-
-> Importante: el sitio asume que vive en la **raíz de un dominio** (ej. `byteploy.com`),
-> no en una subruta como `usuario.github.io/byteploy`. Usa dominio propio al publicar.
-
-## Subir el repo a GitHub (cuando quieras)
+## Verificación
 
 ```bash
-gh repo create byteploy --private --source=. --push
-# o manual:
-git remote add origin git@github.com:TU-USUARIO/byteploy.git
-git push -u origin main
+# Suite interactiva (16 chequeos en Chromium headless via CDP):
+SITE_BASE=http://localhost:8000 CDP_PORT=9251 python3 .claude/skills/verify/cdp_verify.py
+
+# Lighthouse:
+npx lighthouse@12 http://localhost:8000 --preset=desktop \
+  --chrome-flags="--headless=new --user-data-dir=$(mktemp -d)"
 ```
 
-## SEO después de publicar
+Regla del repo: todo cambio se verifica antes de commitear (suite completa +
+Lighthouse 100 + FAQ visible idéntica al JSON-LD).
 
-1. **Google Search Console**: verifica la propiedad y envía `sitemap.xml`.
-2. **Bing Webmaster Tools**: importa desde Search Console (2 clics).
-3. **Perfil de Empresa en Google** (Google Business Profile): clave para aparecer en
-   búsquedas tipo "desarrollo de software + ciudad" en Chile.
-4. Considera comprar también **byteploy.cl** y redirigirlo 301 al dominio principal
-   (o usar `.cl` como principal si el foco comercial es Chile).
-5. Contenido: cuando quieras sumar blog/casos de éxito (muy bueno para SEO),
-   el camino natural es migrar este sitio a **Astro** manteniendo el mismo diseño.
+## Deploy
 
-Lo que ya viene incluido: metaetiquetas completas (title/description/canonical),
-Open Graph + Twitter Cards, `hreflang` es/en/x-default, datos estructurados JSON-LD
-(`Organization` + `ProfessionalService` + `FAQPage`), sitemap, robots.txt,
-HTML semántico accesible y rendimiento máximo (sin librerías externas).
+`git push` a `main` publica automáticamente en Cloudflare Pages
+(`.github/workflows/deploy.yml`; secrets del repo: `CLOUDFLARE_API_TOKEN` con
+permiso Pages:Edit y `CLOUDFLARE_ACCOUNT_ID`). Fallback manual:
+`CLOUDFLARE_API_TOKEN=... ./scripts/deploy.sh`.
 
-## Regenerar imágenes de marca
+Configuración del formulario en Pages (Settings → Variables and Secrets):
+`TURNSTILE_SECRET_KEY`, `BREVO_API_KEY` y opcionales `CONTACT_TO` /
+`CONTACT_FROM_EMAIL` / `CONTACT_FROM_NAME`. La Site Key de Turnstile vive en el
+atributo `data-sitekey` de ambos HTML (es pública).
 
-**Logos, favicons e íconos** — desde los PNG originales en `assets/brand/`:
+## Regenerar assets de marca
 
 ```bash
-python3 assets/brand/process.py
-```
+python3 assets/brand/process.py        # logos, wordmarks, favicons, íconos
+python3 assets/brand/make_founder.py   # foto del fundador (recorte + gradación)
 
-Esto produce los recortes transparentes (`logo-icon*.png`, `wordmark*.png`) y todos
-los favicons/íconos (tile negro con la B blanca). Si reemplazas los originales,
-usa los mismos nombres: `assets/brand/icon-source.png` y `wordmark-lower-source.png`.
-
-**Imagen para compartir** (`og.png`, 1200×630) — desde su HTML fuente con Chromium:
-
-```bash
+# og.png (1200×630) desde su fuente:
 chromium --headless=new --hide-scrollbars --window-size=1200,630 \
   --default-background-color=00000000 --screenshot=assets/og.png assets/og-source.html
+
+# GIF de la demo de Makundal (staging local; credenciales por entorno):
+DEMO_BASE_URL=... DEMO_EMAIL=... DEMO_PASSWORD=... \
+  python3 assets/brand/capture-makundal-demo.py
 ```
+
+## SEO pendiente post-lanzamiento
+
+1. Google Search Console: verificar propiedad + enviar `sitemap.xml`.
+2. Bing Webmaster Tools (importa desde Search Console).
+3. Google Business Profile (búsquedas "desarrollo de software + ciudad").
+4. Considerar `byteploy.cl` con redirect 301 al `.com`.
+
+Incluido de fábrica: canonical + hreflang es/en/x-default, OG/Twitter Cards,
+JSON-LD (`Organization` + `ProfessionalService` + `FAQPage` sincronizada con el
+texto visible), sitemap, robots y HTML semántico accesible.
