@@ -145,6 +145,7 @@ h2 { font-size: clamp(28px, 3.6vw, 42px); font-weight: 800; letter-spacing: -0.0
 .hero-grid > * { min-width: 0; }
 .eyebrow { font: 500 13.5px/1.5 var(--font-mono); color: var(--ink2); margin-bottom: 18px; }
 .eyebrow b { color: var(--ink); }
+.flag-cl { display: inline-block; vertical-align: -2px; border-radius: 2.5px; box-shadow: 0 0 0 1px rgba(17, 17, 20, 0.1); }
 .hero-title { font-size: clamp(40px, 5.6vw, 66px); font-weight: 800; letter-spacing: -0.025em; line-height: 1.06; }
 /* La palabra animada vive en su propia línea → el nº de líneas del h1 no
    cambia al escribir/borrar y el layout no salta (CLS 0) */
@@ -399,6 +400,7 @@ h2 { font-size: clamp(28px, 3.6vw, 42px); font-weight: 800; letter-spacing: -0.0
 .contact-or { display: flex; align-items: center; gap: 14px; margin-top: 26px; font: 600 11px/1 var(--font-mono); letter-spacing: 0.14em; text-transform: uppercase; color: var(--dmuted); }
 .contact-or::before, .contact-or::after { content: ""; flex: 1; height: 1px; background: var(--dline); }
 .contact-channels { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 18px; }
+.channel-wide { grid-column: 1 / -1; }
 .channel {
   display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 2px 12px;
   background: var(--dark); border: 1px solid var(--dline); border-radius: 12px;
@@ -419,6 +421,9 @@ h2 { font-size: clamp(28px, 3.6vw, 42px); font-weight: 800; letter-spacing: -0.0
 .footer-grid { display: flex; align-items: center; justify-content: space-between; gap: 18px; flex-wrap: wrap; }
 .footer-brand img { height: 20px; width: auto; }
 .footer-legal p { font-size: 13.5px; color: var(--muted); }
+.footer-social { display: inline-flex; align-items: center; gap: 7px; font: 500 13px/1 var(--font-mono); color: var(--ink2); text-decoration: none; margin-left: auto; margin-right: 18px; }
+.footer-social svg { color: var(--yellow2); }
+.footer-social:hover { color: var(--yellow2); }
 
 /* ---------- Reveal (activado por JS; sin JS todo queda visible) ---------- */
 
