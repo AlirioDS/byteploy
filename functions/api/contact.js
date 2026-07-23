@@ -1,12 +1,14 @@
 // Endpoint del formulario de contacto (Cloudflare Pages Function).
 // Verifica Cloudflare Turnstile en el servidor (mismo patrón que altairum)
-// y envía el correo con la API de Resend.
+// y envía el correo con la API transaccional de Brevo (dominio byteploy.com
+// ya autenticado con DKIM en DNS).
 //
 // Variables de entorno (Pages > Settings > Variables and Secrets):
 //   TURNSTILE_SECRET_KEY  secreto del widget Turnstile (obligatoria)
-//   RESEND_API_KEY        API key de Resend (obligatoria)
+//   BREVO_API_KEY         API key de Brevo (obligatoria)
 //   CONTACT_TO            destinatario, por defecto info@byteploy.com
-//   CONTACT_FROM          remitente verificado en Resend, p. ej. "Web Byteploy <web@byteploy.com>"
+//   CONTACT_FROM_EMAIL    remitente, por defecto web@byteploy.com
+//   CONTACT_FROM_NAME     nombre del remitente, por defecto "Web Byteploy"
 
 const VERIFY_URL = "https://challenges.cloudflare.com/turnstile/v0/siteverify";
 
@@ -41,7 +43,7 @@ export async function onRequestPost({ request, env }) {
     return json({ success: false, message: "Revisa los campos del formulario." }, 422);
   }
 
-  if (!env.TURNSTILE_SECRET_KEY || !env.RESEND_API_KEY) {
+  if (!env.TURNSTILE_SECRET_KEY || !env.BREVO_API_KEY) {
     return json({ success: false, message: "Formulario en configuración." }, 503);
   }
 
@@ -59,18 +61,21 @@ export async function onRequestPost({ request, env }) {
     return json({ success: false, message: "No pudimos validar el captcha. Recarga e inténtalo de nuevo." }, 403);
   }
 
-  const sent = await fetch("https://api.resend.com/emails", {
+  const sent = await fetch("https://api.brevo.com/v3/smtp/email", {
     method: "POST",
     headers: {
-      Authorization: `Bearer ${env.RESEND_API_KEY}`,
+      "api-key": env.BREVO_API_KEY,
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      from: env.CONTACT_FROM || "Web Byteploy <web@byteploy.com>",
-      to: [env.CONTACT_TO || "info@byteploy.com"],
-      reply_to: email,
+      sender: {
+        name: env.CONTACT_FROM_NAME || "Web Byteploy",
+        email: env.CONTACT_FROM_EMAIL || "web@byteploy.com",
+      },
+      to: [{ email: env.CONTACT_TO || "info@byteploy.com" }],
+      replyTo: { email },
       subject: `Nuevo contacto: ${name}`,
-      text: `Nombre/empresa: ${name}\nEmail: ${email}\n\n${message}\n\n· Enviado desde el formulario de byteploy.com`,
+      textContent: `Nombre/empresa: ${name}\nEmail: ${email}\n\n${message}\n\n· Enviado desde el formulario de byteploy.com`,
     }),
   });
   if (!sent.ok) {
