@@ -181,6 +181,19 @@ h2 { font-size: clamp(28px, 3.6vw, 42px); font-weight: 800; letter-spacing: -0.0
 .term-body .ok { color: #7ddb8a; }
 .t-url { color: var(--yellow); text-decoration: underline; text-underline-offset: 3px; }
 .term-cursor { display: inline-block; width: 8px; height: 15px; background: var(--yellow); vertical-align: -2px; animation: blink 1.1s steps(1) infinite; }
+/* Deploy en vivo: las líneas aparecen en secuencia y el ciclo se repite */
+.t-line { opacity: 0; animation: term-line 12s infinite both; }
+.t-line:nth-of-type(2) { animation-delay: 1.1s; }
+.t-line:nth-of-type(3) { animation-delay: 2s; }
+.t-line:nth-of-type(4) { animation-delay: 3.2s; }
+.t-line:nth-of-type(5) { animation-delay: 4.8s; }
+.t-line:nth-of-type(6) { animation-delay: 5.7s; }
+.t-line:nth-of-type(7) { animation-delay: 6.6s; }
+@keyframes term-line {
+  0% { opacity: 0; }
+  1.5%, 88% { opacity: 1; }
+  94%, 100% { opacity: 0; }
+}
 
 /* ---------- Cards + bento ---------- */
 
@@ -465,7 +478,7 @@ h2 { font-size: clamp(28px, 3.6vw, 42px); font-weight: 800; letter-spacing: -0.0
   html { scroll-behavior: auto; }
   .reveal { opacity: 1; transform: none; transition: none; }
   .caret, .term-cursor, .case-status-dot { animation: none; }
-  .t-row, .ticket-total, .pay-chip { animation: none; opacity: 1; }
+  .t-row, .ticket-total, .pay-chip, .t-line { animation: none; opacity: 1; }
   .btn, .card, .road-card { transition: none; }
   .btn:hover, .card:hover, .road-card:hover { transform: none; }
 }
