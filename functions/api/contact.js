@@ -7,7 +7,7 @@
 //   TURNSTILE_SECRET_KEY  secreto del widget Turnstile (obligatoria)
 //   BREVO_API_KEY         API key de Brevo (obligatoria)
 //   CONTACT_TO            destinatario, por defecto info@byteploy.com
-//   CONTACT_FROM_EMAIL    remitente, por defecto web@byteploy.com
+//   CONTACT_FROM_EMAIL    remitente, por defecto noreply@byteploy.com
 //   CONTACT_FROM_NAME     nombre del remitente, por defecto "Web Byteploy"
 
 const VERIFY_URL = "https://challenges.cloudflare.com/turnstile/v0/siteverify";
@@ -70,7 +70,7 @@ export async function onRequestPost({ request, env }) {
     body: JSON.stringify({
       sender: {
         name: env.CONTACT_FROM_NAME || "Web Byteploy",
-        email: env.CONTACT_FROM_EMAIL || "web@byteploy.com",
+        email: env.CONTACT_FROM_EMAIL || "noreply@byteploy.com",
       },
       to: [{ email: env.CONTACT_TO || "info@byteploy.com" }],
       replyTo: { email },
